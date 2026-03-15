@@ -110,18 +110,6 @@ body {
   align-items: center;
 }
 
-.slider-track-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: rgba(0, 0, 0, 0.15);
-  border-radius: 2px;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
-
 /* Slider styling */
 input[type="range"] {
   -webkit-appearance: none;
@@ -151,6 +139,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: 32px;
   height: 23px;
   border-radius: 6px;
+  border: none;
   background: linear-gradient(to bottom, #606060, #2b2b2b);
   box-shadow:
     0 3px 8px rgba(0, 0, 0, 0.25),
