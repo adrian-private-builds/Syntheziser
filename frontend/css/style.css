@@ -235,13 +235,21 @@ input[type="range"]::-moz-range-thumb {
   transition: stroke-dashoffset 0.05s ease-out;
 }
 
-/* Knob center — centered on the arc circle */
-.knob-img {
+/* Knob center — shadow wrapper stays fixed, only the img rotates */
+.knob-shadow-wrap {
   position: absolute;
   width: 40px;
   height: 40px;
   top: 16px;
   left: 15px;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.knob-img {
+  width: 40px;
+  height: 40px;
+  display: block;
   pointer-events: none;
   transition: transform 0.05s ease-out;
   overflow: visible;
