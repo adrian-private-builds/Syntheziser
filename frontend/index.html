@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web Synth</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="synth-container">
+    <!-- Top Panel -->
+    <div class="top-panel">
+      <!-- Logo -->
+      <img class="logo" src="assets/sroog-logo.png" alt="Sroog" draggable="false">
+
+      <!-- Waveform Buttons -->
+      <div class="waveform-buttons">
+        <button class="wave-btn active" data-wave="saw">Saw</button>
+        <button class="wave-btn" data-wave="sine">Sine</button>
+        <button class="wave-btn" data-wave="square">Square</button>
+        <button class="wave-btn" data-wave="triangle">Triangle</button>
+      </div>
+
+      <!-- Master Gain -->
+      <div class="master-gain">
+        <label class="gain-label">Master Gain</label>
+        <div class="slider-track">
+          <div class="slider-track-line"></div>
+          <input type="range" id="gain" min="0" max="1" step="0.01" value="0.15">
+        </div>
+      </div>
+
+      <!-- Knobs Row -->
+      <div class="knobs-row">
+        <div class="knob-group">
+          <div class="knob" data-param="cutoff" data-min="100" data-max="12000" data-value="2000">
+            <svg class="knob-arc" viewBox="0 0 55 48" fill="none">
+              <!-- Track arc (background) -->
+              <path class="knob-track" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="black" stroke-opacity="0.1" stroke-width="4"/>
+              <!-- Value arc (indicator) -->
+              <path class="knob-value" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="#494949" stroke-width="4"/>
+            </svg>
+            <img src="assets/knob_center.svg" class="knob-img" alt="knob" draggable="false">
+          </div>
+          <span class="knob-label">Filter Cutoff</span>
+        </div>
+        <div class="knob-group">
+          <div class="knob" data-param="attack" data-min="0.001" data-max="2" data-value="0.01">
+            <svg class="knob-arc" viewBox="0 0 55 48" fill="none">
+              <path class="knob-track" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="black" stroke-opacity="0.1" stroke-width="4"/>
+              <path class="knob-value" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="#494949" stroke-width="4"/>
+            </svg>
+            <img src="assets/knob_center.svg" class="knob-img" alt="knob" draggable="false">
+          </div>
+          <span class="knob-label">Attack</span>
+        </div>
+        <div class="knob-group">
+          <div class="knob" data-param="decay" data-min="0.001" data-max="2" data-value="0.1">
+            <svg class="knob-arc" viewBox="0 0 55 48" fill="none">
+              <path class="knob-track" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="black" stroke-opacity="0.1" stroke-width="4"/>
+              <path class="knob-value" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="#494949" stroke-width="4"/>
+            </svg>
+            <img src="assets/knob_center.svg" class="knob-img" alt="knob" draggable="false">
+          </div>
+          <span class="knob-label">Decay</span>
+        </div>
+        <div class="knob-group">
+          <div class="knob" data-param="sustain" data-min="0" data-max="1" data-value="0.7">
+            <svg class="knob-arc" viewBox="0 0 55 48" fill="none">
+              <path class="knob-track" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="black" stroke-opacity="0.1" stroke-width="4"/>
+              <path class="knob-value" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="#494949" stroke-width="4"/>
+            </svg>
+            <img src="assets/knob_center.svg" class="knob-img" alt="knob" draggable="false">
+          </div>
+          <span class="knob-label">Sustain</span>
+        </div>
+        <div class="knob-group">
+          <div class="knob" data-param="release" data-min="0.001" data-max="5" data-value="0.2">
+            <svg class="knob-arc" viewBox="0 0 55 48" fill="none">
+              <path class="knob-track" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="black" stroke-opacity="0.1" stroke-width="4"/>
+              <path class="knob-value" d="M10.18 43.82C6.75 40.4 4.42 36.03 3.47 31.28C2.53 26.53 3.01 21.6 4.86 17.12C6.72 12.65 9.86 8.82 13.89 6.13C17.92 3.44 22.65 2 27.5 2C32.35 2 37.08 3.44 41.11 6.13C45.14 8.82 48.28 12.65 50.14 17.12C51.99 21.6 52.47 26.53 51.53 31.28C50.58 36.03 48.25 40.4 44.82 43.82" stroke="#494949" stroke-width="4"/>
+            </svg>
+            <img src="assets/knob_center.svg" class="knob-img" alt="knob" draggable="false">
+          </div>
+          <span class="knob-label">Release</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Keyboard -->
+    <div class="keyboard-container">
+      <div class="keyboard-edge left"></div>
+      <div class="keyboard" id="keyboard">
+        <!-- White keys -->
+        <button class="white-key" data-note="60"></button>
+        <button class="white-key" data-note="62"></button>
+        <button class="white-key" data-note="64"></button>
+        <button class="white-key" data-note="65"></button>
+        <button class="white-key" data-note="67"></button>
+        <button class="white-key" data-note="69"></button>
+        <button class="white-key" data-note="71"></button>
+        <button class="white-key" data-note="72"></button>
+        <button class="white-key" data-note="74"></button>
+        <button class="white-key" data-note="76"></button>
+        <!-- Black keys -->
+        <button class="black-key" data-note="61" style="left: 40px;"></button>
+        <button class="black-key" data-note="63" style="left: 95px;"></button>
+        <button class="black-key" data-note="66" style="left: 205px;"></button>
+        <button class="black-key" data-note="68" style="left: 260px;"></button>
+        <button class="black-key" data-note="70" style="left: 315px;"></button>
+        <button class="black-key" data-note="73" style="left: 425px;"></button>
+        <button class="black-key" data-note="75" style="left: 480px;"></button>
+      </div>
+      <div class="keyboard-edge right"></div>
+    </div>
+  </div>
+
+  <div class="hint">
+    Play with keyboard — White keys: Z X C V B N M , . /&nbsp; |&nbsp; Black keys: S D G H J L ;
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+numpy
+sounddevice
+flask
+python-rtmidi  # optional — needed only for synth_realtime.py --midi mode

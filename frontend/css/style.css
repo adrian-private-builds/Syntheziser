@@ -1,0 +1,379 @@
+/* Synth UI — Figma "Sroog Design" recreation */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  user-select: none;
+}
+
+/* ── Main container ──────────────────────────────────────────────── */
+
+.synth-container {
+  width: 560px;
+  background: white;
+  border: 5px solid #303030;
+  border-radius: 2px 2px 4px 4px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Top panel ───────────────────────────────────────────────────── */
+
+.top-panel {
+  background: rgba(229, 229, 229, 0.69);
+  padding: 20px 20px 16px;
+  position: relative;
+}
+
+/* ── Logo ─────────────────────────────────────────────────────── */
+
+.logo {
+  display: block;
+  height: 43px;
+  width: auto;
+  margin-bottom: 14px;
+}
+
+/* ── Waveform buttons ────────────────────────────────────────────── */
+
+.waveform-buttons {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.wave-btn {
+  width: 70px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: black;
+  cursor: pointer;
+  background: linear-gradient(to bottom, #fcfcfc, #d7d7d7);
+  box-shadow:
+    0 1px 1px rgba(0, 0, 0, 0.17),
+    0 2px 4px rgba(0, 0, 0, 0.15),
+    inset 0 1px 1px white;
+  transition: all 0.1s ease;
+}
+
+.wave-btn:hover {
+  background: linear-gradient(to bottom, #f0f0f0, #cfcfcf);
+}
+
+.wave-btn.active {
+  background: linear-gradient(to bottom, #d2d2d2, #dbdbdb);
+  box-shadow:
+    inset 0 0 4px 1px rgba(0, 0, 0, 0.22),
+    inset 0 2px 2px #848484;
+}
+
+/* ── Master gain ─────────────────────────────────────────────────── */
+
+.master-gain {
+  position: absolute;
+  top: 61px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 180px;
+}
+
+.gain-label {
+  font-size: 12px;
+  color: #181818;
+  margin-bottom: 6px;
+}
+
+.slider-track {
+  position: relative;
+  width: 180px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.slider-track-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 2px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 24px;
+  background: transparent;
+  cursor: pointer;
+  --range-fill: 15%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    #3a3a3a 0%,
+    #3a3a3a var(--range-fill),
+    rgba(0, 0, 0, 0.18) var(--range-fill),
+    rgba(0, 0, 0, 0.18) 100%
+  );
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35), inset 0 -1px 1px rgba(255,255,255,0.06);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 32px;
+  height: 23px;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #606060, #2b2b2b);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(237, 239, 255, 0.57);
+  margin-top: -10px;
+  cursor: grab;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+  cursor: grabbing;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 2px;
+  border: none;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35), inset 0 -1px 1px rgba(255,255,255,0.06);
+}
+
+input[type="range"]::-moz-range-progress {
+  height: 4px;
+  background: #3a3a3a;
+  border-radius: 2px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 32px;
+  height: 23px;
+  border-radius: 6px;
+  background: linear-gradient(to bottom, #606060, #2b2b2b);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(237, 239, 255, 0.57);
+  border: none;
+  cursor: grab;
+}
+
+/* ── Knobs row ───────────────────────────────────────────────────── */
+
+.knobs-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0 0 0 0;
+}
+
+.knob-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+}
+
+.knob {
+  width: 68px;
+  height: 79px;
+  position: relative;
+  cursor: pointer;
+  touch-action: none;
+}
+
+/* Arc SVG — positioned to match Figma inset 0 -1.89% 10.87% -1.89% */
+.knob-arc {
+  position: absolute;
+  top: 11px;
+  left: 7px;
+  width: 55px;
+  height: 48px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.knob-track {
+  filter: drop-shadow(0 1px 0.5px white);
+}
+
+.knob-value {
+  filter: drop-shadow(0 1px 0.5px rgba(255,255,255,0.45));
+  transition: stroke-dashoffset 0.05s ease-out;
+}
+
+/* Knob center — centered on the arc circle */
+.knob-img {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  top: 16px;
+  left: 15px;
+  pointer-events: none;
+  transition: transform 0.05s ease-out;
+  overflow: visible;
+}
+
+.knob-label {
+  font-size: 12px;
+  color: #181818;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Keyboard ────────────────────────────────────────────────────── */
+
+.keyboard-container {
+  background: #323232;
+  height: 171px;
+  position: relative;
+}
+
+.keyboard-edge {
+  position: absolute;
+  top: 5px;
+  width: 15px;
+  height: 163px;
+  overflow: hidden;
+  z-index: 6;
+}
+
+.keyboard-edge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: #636363;
+  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.48);
+}
+
+.keyboard-edge.left {
+  left: 0;
+}
+
+.keyboard-edge.left::after {
+  left: 0;
+}
+
+.keyboard-edge.right {
+  right: 0;
+}
+
+.keyboard-edge.right::after {
+  right: 0;
+}
+
+.keyboard {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Top shadow over keyboard */
+.keyboard::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: black;
+  box-shadow: 0 8px 49px 28px rgba(0, 0, 0, 0.09),
+              0 2px 3px 1px rgba(0, 0, 0, 0.48);
+  z-index: 10;
+}
+
+.white-key {
+  display: block;
+  float: left;
+  width: 55px;
+  height: 164px;
+  background: #fffefe;
+  border: 1px solid #e7e7e7;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  transition: background 0.05s;
+}
+
+.white-key:hover {
+  background: #f8f8f8;
+}
+
+.white-key.active {
+  background: #f4f4f4;
+  border-color: #a2a1a1;
+  box-shadow: inset 0 4px 11px rgba(0, 0, 0, 0.35);
+}
+
+.black-key {
+  position: absolute;
+  width: 30px;
+  height: 106px;
+  background: #232323;
+  border: none;
+  border-radius: 0 0 4px 4px;
+  cursor: pointer;
+  z-index: 5;
+  top: 0;
+  box-shadow: inset 4px 0 3px rgba(255, 255, 255, 0.18);
+  transition: background 0.05s;
+}
+
+.black-key:hover {
+  background: #2a2a2a;
+}
+
+.black-key.active {
+  background: #444;
+  box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.9),
+              inset 0 -2px 4px rgba(255, 255, 255, 0.45);
+}
+
+/* ── Hint ────────────────────────────────────────────────────────── */
+
+.hint {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #888;
+  margin-top: 12px;
+  text-align: center;
+}
