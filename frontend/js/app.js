@@ -1,14 +1,6 @@
 // frontend/js/app.js
 
-const API_BASE = '/api';
-
-function postJSON(path, obj) {
-  return fetch(API_BASE + path, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj),
-  }).then(r => r.json().catch(() => {}));
-}
+const synth = new WebSynth();
 
 // ── Auto-start audio on first interaction ────────────────────────────────────
 
@@ -17,7 +9,7 @@ let audioStarted = false;
 function ensureAudio() {
   if (audioStarted) return;
   audioStarted = true;
-  postJSON('/start', {});
+  synth.start();
 }
 
 // ── Waveform buttons ─────────────────────────────────────────────────────────
@@ -27,7 +19,7 @@ document.querySelectorAll('.wave-btn').forEach(btn => {
     document.querySelectorAll('.wave-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     ensureAudio();
-    postJSON('/set_params', { waveform: btn.dataset.wave });
+    synth.setParams({ waveform: btn.dataset.wave });
   });
 });
 
@@ -45,7 +37,7 @@ updateGainFill();
 gainSlider.addEventListener('input', function () {
   ensureAudio();
   updateGainFill();
-  postJSON('/set_params', { gain: parseFloat(this.value) });
+  synth.setParams({ gain: parseFloat(this.value) });
 });
 
 // ── Rotary knobs ─────────────────────────────────────────────────────────────
@@ -116,7 +108,7 @@ document.querySelectorAll('.knob').forEach(knobEl => {
     value = angleToValue(newAngle);
     knobEl.dataset.value = value;
     updateVisual();
-    postJSON('/set_params', { [param]: value });
+    synth.setParams({ [param]: value });
   });
 
   knobEl.addEventListener('pointerup', () => { dragging = false; });
@@ -130,7 +122,7 @@ document.querySelectorAll('.knob').forEach(knobEl => {
     value = Math.max(min, Math.min(max, value - e.deltaY * step * 0.1));
     knobEl.dataset.value = value;
     updateVisual();
-    postJSON('/set_params', { [param]: value });
+    synth.setParams({ [param]: value });
   });
 });
 
@@ -142,15 +134,15 @@ document.querySelectorAll('#keyboard button').forEach(b => {
   b.addEventListener('pointerdown', e => {
     e.preventDefault();
     ensureAudio();
-    postJSON('/note_on', { note: note(), velocity: 100 });
+    synth.noteOn(note(), 100);
     b.classList.add('active');
   });
   b.addEventListener('pointerup', () => {
-    postJSON('/note_off', { note: note() });
+    synth.noteOff(note());
     b.classList.remove('active');
   });
   b.addEventListener('pointerleave', () => {
-    postJSON('/note_off', { note: note() });
+    synth.noteOff(note());
     b.classList.remove('active');
   });
 });
@@ -184,7 +176,7 @@ window.addEventListener('keydown', ev => {
   ensureAudio();
   const note = keyMap[k];
   noteButtonForMidi(note)?.classList.add('active');
-  postJSON('/note_on', { note, velocity: 100 });
+  synth.noteOn(note, 100);
 });
 
 window.addEventListener('keyup', ev => {
@@ -194,13 +186,13 @@ window.addEventListener('keyup', ev => {
   ev.preventDefault();
   const note = keyMap[k];
   noteButtonForMidi(note)?.classList.remove('active');
-  postJSON('/note_off', { note });
+  synth.noteOff(note);
 });
 
 window.addEventListener('blur', () => {
   pressedKeys.forEach(k => {
     const note = keyMap[k];
-    if (note) postJSON('/note_off', { note });
+    if (note) synth.noteOff(note);
     noteButtonForMidi(note)?.classList.remove('active');
   });
   pressedKeys.clear();
